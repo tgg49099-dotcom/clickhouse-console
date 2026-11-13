@@ -23,6 +23,8 @@
 // be shipped either.
 
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.ProductMode
 
 plugins {
     // Kotlin 2.2.0, and NOT the 2.0.21 that was in the local cache:
@@ -135,6 +137,40 @@ intellijPlatform {
     // agreement of the repository owner.
     publishing {
         token = System.getenv("JETBRAINS_MARKETPLACE_TOKEN")
+    }
+
+    // -------------------------------------------------------------------------
+    // PRE-FLIGHT: the IntelliJ Plugin Verifier
+    // -------------------------------------------------------------------------
+    // `./gradlew verifyPlugin` checks the plugin against a real IDE: missing
+    // classes, calls to APIs that moved, uses of internal APIs. It is the check
+    // the Marketplace runs before it accepts an upload.
+    //
+    // MEASURED (13/11/2026): without this block the task fails with
+    //   "No IDE resolved for verification with the IntelliJ Plugin Verifier.
+    //    Please ensure the `intellijPlatform.pluginVerification.ides` extension
+    //    block is configured along with the `defaultRepositories()` (or at least
+    //    `localPlatformArtifacts()`) entry in the repositories section."
+    //
+    // The IDE to verify against is given by `-PplatformLocalPath=/path/to/ide`
+    // (an installed IDE: nothing is downloaded). Without that property, the
+    // matching IDE release is resolved from the JetBrains repositories.
+    pluginVerification {
+        ides {
+            val verifierIdePath = (project.findProperty("platformLocalPath") as String?)?.trim()
+            if (!verifierIdePath.isNullOrEmpty()) {
+                local(file(verifierIdePath))
+            } else {
+                // The same artifact as the one the plugin is compiled against:
+                // `useInstaller = false` -> `com.jetbrains.intellij.idea:ideaIC`.
+                ide(
+                    IntelliJPlatformType.IntellijIdeaCommunity,
+                    (project.findProperty("platformVersion") as String?) ?: "2025.3",
+                    false,
+                    ProductMode.MONOLITH,
+                )
+            }
+        }
     }
 }
 

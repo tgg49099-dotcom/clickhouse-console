@@ -97,10 +97,33 @@ console.
   part ailleurs. Aucun compte, aucune télémétrie.
 - Il n'affiche **ni prix ni « Pro »** : la vente n'est pas en ligne.
 
-## 9. Ce qui reste à faire avant une publication
+## 9. Ce qui a été VÉRIFIÉ le 13/11/2026 (pas seulement compilé)
+
+Le plugin n'est pas « supposé » fonctionner : il a été **exécuté dans un vrai
+IDE** (IntelliJ IDEA Community 2025.3, plugin chargé depuis le ZIP) et a
+interrogé le **playground public officiel** de ClickHouse
+(`play.clickhouse.com:443`, HTTPS, sans compte).
+
+| Vérification | Résultat mesuré |
+|---|---|
+| Plugin chargé par l'IDE | `Loaded custom plugins: ClickHouse Console (0.0.1)` |
+| Requête exécutée | `SELECT number AS id, concat('row-', toString(number)) AS label, number * 100 AS amount FROM numbers(6)` |
+| Réponse du serveur | 6 lignes, 3 colonnes — `id (UInt64)`, `label (String)`, `amount (UInt64)` |
+| Ligne de statut | `6 row(s), 3 column(s).` |
+| Bouton « Test connection » | `Connected. ClickHouse 26.10.3.7.` |
+| Tests automatisés | 50 tests, 0 échec (4 ignorés sans réseau) ; 4 tests en plus passent contre `play.clickhouse.com` |
+| **Plugin Verifier** (pré-flight Marketplace) | `Plugin com.tgglabs.clickhouseconsole:0.0.1 against IC-253.28294.334: **Compatible**` |
+
+Les **quatre captures** de la fiche (`images/`, dans le dépôt) sont ces vraies
+captures : rien n'est maquetté.
+
+## 10. Ce qui reste à faire avant une publication
 
 1. Revue de code du jury **sans bloquant** (obligatoire avant tout upload).
 2. Relecture des textes visibles par l'utilisateur (description, change notes,
    README) par la pompe à carburant → `/work/carburant/`.
 3. Décision de Tgg : statut de commerçant (`isTrader`) et prix.
-4. Trois captures d'écran de la fenêtre d'outil (le Marketplace les demande).
+4. ~~Captures d'écran~~ → **FAIT** le 13/11/2026 : 4 captures réelles dans
+   `images/` (à téléverser sur la fiche Marketplace au moment de l'upload).
+5. Ticket de version / notes de publication rédigées par le propriétaire.
+

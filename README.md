@@ -8,6 +8,20 @@ shows the result as a table, using the **official HTTP interface** of the server
 - **IDE:** IntelliJ Platform 2025.3 and later (`since-build 253`), any IDE —
   IDEA Community, PyCharm Community, WebStorm, GoLand…
 
+## Screenshots
+
+The pictures below are real captures of IntelliJ IDEA Community 2025.3 with
+this plugin, running a query against the **public playground** of ClickHouse
+(`play.clickhouse.com`, the official server of the ClickHouse project).
+
+![The ClickHouse Console tool window](images/01-console-clickhouse.png)
+
+![The connection parameters](images/02-parametres-connexion.png)
+
+![A query and its result](images/03-requete-et-resultat.png)
+
+![A successful connection](images/04-connexion-verifiee.png)
+
 ## What it does
 
 - A **tool window** (`View | Tool Windows | ClickHouse Console`) with the
@@ -63,6 +77,22 @@ needs the network:
 
 ```bash
 CLICKHOUSE_PUBLIC=1 ./gradlew test --tests '*ClickHousePublicServerTest*'
+```
+
+## Pre-flight check (IntelliJ Plugin Verifier)
+
+`./gradlew verifyPlugin` runs the **IntelliJ Plugin Verifier** — the check the
+JetBrains Marketplace runs before it accepts an upload. It resolves the IDE to
+verify against from the JetBrains repositories; pass
+`-PplatformLocalPath=/path/to/ide` to verify against an IDE you already have
+installed (nothing is downloaded).
+
+Measured on 13/11/2026:
+
+```
+Plugin com.tgglabs.clickhouseconsole:0.0.1 against IC-253.28294.334: Compatible.
+Dynamic Plugin Eligibility:
+    Plugin can probably be enabled or disabled without IDE restart
 ```
 
 ## License
