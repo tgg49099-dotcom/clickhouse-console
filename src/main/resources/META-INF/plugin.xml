@@ -1,0 +1,69 @@
+<idea-plugin>
+  <id>com.tgglabs.clickhouseconsole</id>
+  <name>ClickHouse Console</name>
+
+  <!-- Version de la V0 (0.0.1). Aucune vente en ligne, aucun prix affiche :
+       la version Marketplace de reference sera posee le jour ou la licence
+       existe (doc « add-required-parameters » : `version` doit correspondre
+       au `release-version` du descripteur de produit). -->
+  <version>0.0.1</version>
+
+  <vendor email="tgg.apps.support@gmail.com" url="https://plugins.jetbrains.com/vendor/tgg-labs">Tgg Labs</vendor>
+
+  <description><![CDATA[
+    <p>Run <b>ClickHouse</b> queries straight from your IDE and read the result
+    as a table — no external client, no copy-paste of results.</p>
+    <ul>
+      <li><b>Official HTTP interface</b>: the plugin talks to the ClickHouse
+      HTTP interface (port 8123 by default). It is the same interface the
+      <code>clickhouse-client</code> uses over HTTP, with the official
+      <code>X-ClickHouse-User</code> / <code>X-ClickHouse-Key</code>
+      headers.</li>
+      <li><b>Any IDE</b>: the plugin only needs the IntelliJ Platform, so it
+      works in IDEA Community, PyCharm Community, WebStorm, GoLand and the
+      others — including the IDEs where the built-in database tools are not
+      available.</li>
+      <li><b>Result as a table</b>: columns and types come from the server
+      itself, values are shown as they are returned.</li>
+      <li><b>Nothing leaves your machine</b>: the query goes to the server you
+      configured, and nowhere else.</li>
+    </ul>
+  ]]></description>
+
+  <!-- Notes de version : element racine de <idea-plugin>, affichees par le
+       Marketplace a la publication. Texte reel (le controle de pre-vol les
+       refuse si elles sont vides ou absentes). -->
+  <change-notes><![CDATA[
+    <p>First version.</p>
+    <ul>
+      <li>Connection panel: host, port, user, password, default database.</li>
+      <li>SQL editor and a table showing the result of the last query.</li>
+      <li>Reads the official ClickHouse HTTP interface; JSON and TSV answers
+      are both supported.</li>
+    </ul>
+  ]]></change-notes>
+
+  <!-- Compatibilite : since-build 253 = IntelliJ Platform 2025.3.
+       Le plugin ne depend que de `com.intellij.modules.platform` : il n'a
+       besoin ni de la base de donnees embarquee (DataGrip / Database Tools),
+       ni d'aucun plugin de la plateforme. -->
+  <idea-version since-build="253"/>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Fenetre d'outil : c'est elle qui contient le panneau de connexion,
+         l'editeur SQL et la table de resultats. -->
+    <toolWindow id="ClickHouse Console"
+                anchor="bottom"
+                icon="AllIcons.Toolwindows.ToolWindowServer"
+                factoryClass="com.tgglabs.clickhouse.ui.ClickHouseToolWindowFactory"/>
+
+    <!-- Les reglages applicatifs (hote, port, utilisateur, base) sont declares
+         par l'annotation @Service de ClickHouseSettings : un service declare
+         a la fois dans plugin.xml et par @Service est refuse par la
+         plateforme ("is registered both in plugin.xml and with @Service").
+         Le MOT DE PASSE n'est pas dans les reglages : il est dans le
+         PasswordSafe de l'IDE (voir ClickHouseCredentialStore). -->
+  </extensions>
+</idea-plugin>

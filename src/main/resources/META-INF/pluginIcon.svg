@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  pluginIcon.svg — logo du plugin « ClickHouse Console » (variante CLAIRE).
+  Contraintes du Marketplace : 40x40, pas de reference externe, pas de police
+  externe. Le dessin est un cylindre (le stockage de ClickHouse) surmonté de
+  trois lignes (la table de resultats). Deux couleurs : bleu et anthracite.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+  <ellipse cx="20" cy="12" rx="12" ry="4.5" stroke="#2F6FED" stroke-width="3"/>
+  <path d="M8 12 V28 A12 4.5 0 0 0 32 28 V12" stroke="#2F6FED" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13 19 H27" stroke="#3D4451" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13 25 H27" stroke="#3D4451" stroke-width="3" stroke-linecap="round"/>
+</svg>

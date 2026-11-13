@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  pluginIcon_dark.svg — logo du plugin « ClickHouse Console » (variante SOMBRE).
+  Meme dessin que pluginIcon.svg, avec des couleurs plus claires pour le
+  fond sombre de l'IDE.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+  <ellipse cx="20" cy="12" rx="12" ry="4.5" stroke="#6C9BFF" stroke-width="3"/>
+  <path d="M8 12 V28 A12 4.5 0 0 0 32 28 V12" stroke="#6C9BFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13 19 H27" stroke="#CED0D6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13 25 H27" stroke="#CED0D6" stroke-width="3" stroke-linecap="round"/>
+</svg>
